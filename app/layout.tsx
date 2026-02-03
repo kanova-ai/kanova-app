@@ -92,11 +92,47 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       />
     </Link>
 
-    <nav className="flex items-center gap-4 text-sm text-zinc-700">
+    {/* <nav className="flex items-center gap-4 text-sm text-zinc-700">
+       <Link href="/">Home</Link>
       <Link className="hover:underline" href="/text-prompts">Text</Link>
       <Link className="hover:underline" href="/photo-prompts">AI Photo</Link>
+      <Link className="hover:underline" href="/valentine-AI">❤️Valentine AI</Link>
       <Link className="hover:underline" href="/saved">Saved</Link>
-    </nav>
+    </nav> */}
+
+    {/* new navbar here  */}
+     <div className="flex items-center gap-2">
+          <Link
+              href="/"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium hover:bg-black/5"
+            >
+              Home
+            </Link>
+           <Link
+              href="/text-prompts"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium hover:bg-black/5"
+            >
+              Text
+            </Link>
+            <Link
+              href="/photo-prompts"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium hover:bg-black/5"
+            >
+              AI Photo
+            </Link>
+            <Link
+              href="/valentine-AI"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium hover:bg-black/5"
+            >
+              ❤️Valentine AI
+            </Link>
+            <Link
+              href="/saved"
+              className="rounded-full border border-black/10 bg-white px-3 py-1.5 text-xs font-medium hover:bg-black/5"
+            >
+              Saved
+            </Link>
+          </div>
   </div>
 </header>
 
