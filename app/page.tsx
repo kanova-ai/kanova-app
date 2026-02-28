@@ -51,6 +51,12 @@ export default function Home() {
           >
            ❤️ Valentine AI
           </Link>
+           <Link
+            className="rounded-xl border border-zinc-200 bg-white px-4 py-2 text-sm font-medium hover:bg-zinc-50"
+            href="/holi-ai"
+          >
+           🌸 Holi AI
+          </Link>
         </div>
       </section>
 

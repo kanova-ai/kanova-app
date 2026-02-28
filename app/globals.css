@@ -55,5 +55,38 @@
   scrollbar-width: none;
 }
 
+/* new holi function here  */
+
+/* Holi splashes */
+.holi-float {
+  border-radius: 45% 55% 60% 40% / 45% 40% 60% 55%;
+  filter: blur(0px);
+  animation: holiFloat 10s ease-in-out infinite;
+  mix-blend-mode: multiply;
+}
+
+.holi-blob-1 { animation-duration: 12s; }
+.holi-blob-2 { animation-duration: 15s; }
+.holi-blob-3 { animation-duration: 18s; }
+
+@keyframes holiFloat {
+  0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+  50%  { transform: translate(calc(-50% + 18px), calc(-50% - 14px)) rotate(12deg) scale(1.06); }
+  100% { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+}
+
+.holi-pop {
+  border-radius: 35% 65% 55% 45% / 55% 45% 55% 45%;
+  mix-blend-mode: multiply;
+  animation: holiPop 900ms ease-out forwards;
+}
+
+@keyframes holiPop {
+  0%   { transform: translate(-50%, -50%) scale(0.35) rotate(0deg); filter: blur(1px); opacity: 0.0; }
+  15%  { opacity: 0.40; }
+  60%  { transform: translate(-50%, -50%) scale(1.05) rotate(18deg); filter: blur(0px); opacity: 0.35; }
+  100% { transform: translate(-50%, -50%) scale(1.15) rotate(28deg); opacity: 0; }
+}
+
 
 
