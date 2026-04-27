@@ -1443,14 +1443,78 @@ export default function ReelsPage() {
 
   const ideasRef = useRef<HTMLDivElement | null>(null);
 
-  const generateIdeas = async (auto = false, forceNew = false) => {
-    if (auto && !forceNew) {
-      const savedData = localStorage.getItem(STORAGE_KEY);
+//   const generateIdeas = async (auto = false, forceNew = false) => {
+//     if (auto && !forceNew) {
+//       const savedData = localStorage.getItem(STORAGE_KEY);
 
-      if (savedData) {
+//       if (savedData) {
+//         const parsed = JSON.parse(savedData);
+
+//         // 🔥 Fix for old + new format
+//         const savedIdeas = Array.isArray(parsed)
+//           ? parsed
+//           : Array.isArray(parsed?.ideas)
+//           ? parsed.ideas
+//           : [];
+
+//         const savedTimestamp = parsed?.timestamp || 0;
+//         const isExpired = Date.now() - savedTimestamp > ONE_DAY;
+
+//         if (!isExpired && savedIdeas.length > 0) {
+//           setIdeas(savedIdeas);
+//           return;
+//         }
+
+//         localStorage.removeItem(STORAGE_KEY);
+//       }
+//     }
+
+//     setLoading(true);
+
+//     try {
+//       const res = await fetch("/api/generate", {
+//         method: "POST",
+//         body: JSON.stringify({
+//           type: "reels",
+//           niche: niche || "UGC creator",
+//           vibe,
+//         }),
+//       });
+
+//       const data = await res.json();
+
+//       if (data.ideas) {
+//         setIdeas(data.ideas);
+
+//         // Save with timestamp
+//         localStorage.setItem(
+//           STORAGE_KEY,
+//           JSON.stringify({
+//             ideas: data.ideas,
+//             timestamp: Date.now(),
+//           })
+//         );
+
+//         setTimeout(() => {
+//           ideasRef.current?.scrollIntoView({ behavior: "smooth" });
+//         }, 200);
+//       }
+//     } catch (err) {
+//       console.log(err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+// new new new 
+const generateIdeas = async (auto = false, forceNew = false) => {
+  if (auto && !forceNew) {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+
+    if (savedData) {
+      try {
         const parsed = JSON.parse(savedData);
 
-        // 🔥 Fix for old + new format
         const savedIdeas = Array.isArray(parsed)
           ? parsed
           : Array.isArray(parsed?.ideas)
@@ -1466,45 +1530,55 @@ export default function ReelsPage() {
         }
 
         localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
       }
     }
+  }
 
-    setLoading(true);
+  // 🔥 FIX: If no data → auto call API
+  setLoading(true);
 
-    try {
-      const res = await fetch("/api/generate", {
-        method: "POST",
-        body: JSON.stringify({
-          type: "reels",
-          niche: niche || "UGC creator",
-          vibe,
-        }),
-      });
+  try {
+    const res = await fetch("/api/generate", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        type: "reels",
+        niche: niche || "UGC creator",
+        vibe: vibe || "viral, modern, relatable",
+      }),
+    });
 
-      const data = await res.json();
+    const data = await res.json();
 
-      if (data.ideas) {
-        setIdeas(data.ideas);
+    const newIdeas = Array.isArray(data?.ideas) ? data.ideas : [];
 
-        // Save with timestamp
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify({
-            ideas: data.ideas,
-            timestamp: Date.now(),
-          })
-        );
+    if (newIdeas.length > 0) {
+      setIdeas(newIdeas);
 
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({
+          ideas: newIdeas,
+          timestamp: Date.now(),
+        })
+      );
+
+      if (!auto) {
         setTimeout(() => {
           ideasRef.current?.scrollIntoView({ behavior: "smooth" });
         }, 200);
       }
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
     }
-  };
+  } catch (err) {
+    console.log("API Error:", err);
+  } finally {
+    setLoading(false);
+  }
+};
 
   useEffect(() => {
     generateIdeas(true);
