@@ -1,35 +1,4 @@
 
-// import "./globals.css";
-// import Navbar from "../components/Navbar";
-// import Footer from "@/components/Footer";
-// import type { Metadata } from "next";
-
-// export const metadata: Metadata = {
-//   title: "Kanova",
-//   description: "Create luxury romantic AI couple prompts instantly.",
-//   icons: {
-//        icon: "/icon.svg",
-//   },
-// };
-
-// export default function RootLayout({
-//   children,
-// }: {
-//   children: React.ReactNode;
-// }) {
-//   return (
-//     <html lang="en">
-//       <body>
-//         <Navbar />
-//         <main className="mx-auto max-w-6xl px-4 py-6">
-//           {children}
-//         </main>
-//         <Footer />
-//       </body>
-//     </html>
-//   );
-// }
-
 // new new code 
 import "./globals.css";
 import Navbar from "../components/Navbar";
